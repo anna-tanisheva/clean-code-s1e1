@@ -1,13 +1,13 @@
 /* Basic Style */
 ul {
-  margin:0;
+  margin: 0;
   padding: 0px;
 }
 li, h3 {
-  list-style:none;
+  list-style: none;
 }
-input,button{
-  outline:none;
+input,button {
+  outline: none;
 }
 
 .body {
@@ -119,7 +119,7 @@ input,button{
   font-size: 18px;
   width: 226px;
 }
-.list-item >  .input-field {
+.list-item > .input-field {
   width: 226px
 }
 .delete-img {
@@ -139,14 +139,14 @@ input,button{
 
 /* Edit Task */
 .list-item .input-field {
-  display:none
+  display: none
 }
 
 .list-item.edit-mode .input-field {
-  display:inline-block;
-  width:224px
+  display: inline-block;
+  width: 224px
 }
 
 .list-item.edit-mode .task-label {
-  display:none;
+  display: none;
 }

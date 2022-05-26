@@ -284,8 +284,7 @@ button {
   display: none;
 } */
 
-.incomplete-tasks__btn-edit,
-.incomplete-tasks__btn-delete {
+.incomplete-tasks__btn {
   background: none;
   border: 0px;
   color: #888888;
@@ -303,8 +302,7 @@ button {
   font-family: Lato, sans-serif;
   cursor: pointer;
 } */
-.incomplete-tasks__btn-edit:hover,
-.incomplete-tasks__btn-delete:hover {
+.incomplete-tasks__btn:hover {
   color: #3a3a3a;
 }
 /* .btn:hover {

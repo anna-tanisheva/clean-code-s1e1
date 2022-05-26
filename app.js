@@ -54,10 +54,10 @@ var createNewTaskElement=function(taskString){
 
 
     editButton.innerText="Edit"; //innerText encodes special characters, HTML does not.
-    editButton.className="incomplete-tasks__btn-edit edit";
+    editButton.className="incomplete-tasks__btn incomplete-tasks__btn_edit";
 
 
-    deleteButton.className="incomplete-tasks__btn-delete delete";
+    deleteButton.className="incomplete-tasks__btn incomplete-tasks__btn_delete";
     deleteButtonImg.src='./remove.svg';
     deleteButtonImg.className = 'incomplete-tasks__img'
     deleteButton.appendChild(deleteButtonImg);
@@ -97,10 +97,16 @@ var editTask=function(){
 
 
     var listItem=this.parentNode;
-    console.log(listItem)
+
     var editInput=listItem.querySelector('input[type=text]');
     var label=listItem.querySelector("label");
-    var editBtn=listItem.querySelector("button.edit");
+    var editBtn;
+    listItem.querySelectorAll('button').forEach(element=>{
+        if(element.classList.contains('incomplete-tasks__btn_edit') || element.classList.contains('completed-tasks__btn_edit')) {
+            editBtn = element;
+        }
+    })
+    console.log(editBtn)
     var containsClassIncomplete=listItem.classList.contains("incomplete-tasks__item_edit");
     console.log(containsClassIncomplete)
     var containsClassCompleted=listItem.classList.contains("completed-tasks__item_edit");
@@ -111,6 +117,7 @@ var editTask=function(){
         //switch to .edit-mode
         //label becomes the inputs value.
         label.innerText=editInput.value;
+       
         editBtn.innerText="Edit";
     }else{
         editInput.value=label.innerText;
@@ -147,8 +154,14 @@ var taskCompleted=function(){
 
     //Append the task list item to the #completed-tasks
     var listItem=this.parentNode;
+    // var children = listItem.querySelectorAll('*')
+    // children.forEach(node => {
+    //     console.log(node.classList[0].split('__')[1])
+    //     var classElem = node.classList[0].split('__')[1];
+    //     node.classList.remove(node.classList[0])
+    //     node.classList[0] = (`completed-tasks__${classElem}`);
+    // });
     completedTasksHolder.appendChild(listItem);
-    console.log(listItem.querySelectorAll('*'))
     bindTaskEvents(listItem, taskIncomplete);
 
 }
@@ -160,6 +173,12 @@ var taskIncomplete=function(){
     //When the checkbox is unchecked
     //Append the task list item to the #incomplete-tasks.
     var listItem=this.parentNode;
+    // var children = listItem.querySelectorAll('*')
+    // children.forEach(node => {
+    //     console.log(node.classList[0].split('__')[1])
+    //     var classElem = node.classList[0].split('__')[1];
+    //     node.classList = `incomplete-tasks__${classElem}`
+    // });
     incompleteTaskHolder.appendChild(listItem);
     bindTaskEvents(listItem,taskCompleted);
 }
@@ -183,8 +202,16 @@ var bindTaskEvents=function(taskListItem,checkBoxEventHandler){
     console.log("bind list item events");
 //select ListItems children
     var checkBox=taskListItem.querySelector("input[type=checkbox]");
-    var editButton=taskListItem.querySelector("button.edit");
-    var deleteButton=taskListItem.querySelector("button.delete");
+    // var editButton=taskListItem.querySelector("button.edit");
+    // var deleteButton=taskListItem.querySelector("button.delete");
+    var editButton, deleteButton
+    taskListItem.querySelectorAll('button').forEach(button => {
+        if (button.classList.contains('incomplete-tasks__btn_edit') ||button.classList.contains('completed-tasks__btn_edit')) {
+            editButton = button;
+        } else if (button.classList.contains('incomplete-tasks__btn_delete') ||button.classList.contains('completed-tasks__btn_delete')) {
+            deleteButton = button;
+        }
+    });
 
 
     //Bind editTask to edit button.

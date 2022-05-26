@@ -3,8 +3,7 @@
   <head>
     <title>Todo App</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="style.css" media="screen" charset="utf-8"> -->
-    <link rel="stylesheet" href="bem-styles.css">
+    <link rel="stylesheet" href="style.css" media="screen" charset="utf-8">
   </head>
   <body class="body">
     <header class="header">
@@ -23,7 +22,7 @@
       </section>
       <section class="incomplete-tasks">
         <h3 class="incomplete-tasks__heading">Todo</h3>
-        <ul id="incomplete-tasks" class="incomplete-tasks__list">
+        <ul class="incomplete-tasks__list">
           <li class="incomplete-tasks__item">
             <input type="checkbox" class="incomplete-tasks__checkbox">
             <label class="incomplete-tasks__label">Pay Bills</label>
@@ -46,14 +45,14 @@
       </section>
       <section class="completed-tasks">
         <h3 class="completed-tasks__heading">Completed</h3>
-        <ul id="completed-tasks" class="completed-tasks__list">
-          <li class="completed-tasks__item list-item">
-            <input type="checkbox" class="completed-tasks__checkbox checkbox" checked>
-            <label class="completed-tasks__label task task-label">See the Doctor</label>
-            <input type="text" class="completed-tasks__input input-field task">
+        <ul class="completed-tasks__list">
+          <li class="completed-tasks__item">
+            <input type="checkbox" class="completed-tasks__checkbox" checked>
+            <label class="completed-tasks__label">See the Doctor</label>
+            <input type="text" class="completed-tasks__input">
             <button class="completed-tasks__btn completed-tasks__btn_edit">Edit</button>
             <button class="completed-tasks__btn completed-tasks__btn_delete">
-              <img src="./remove.svg" class="completed-tasks__img delete-img" alt="">
+              <img src="./remove.svg" class="completed-tasks__img" alt="">
             </button>
           </li>
         </ul>

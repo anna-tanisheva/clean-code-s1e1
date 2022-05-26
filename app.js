@@ -8,11 +8,19 @@
 
 // Event handling, user interaction is what starts the code execution.
 
-var taskInput=document.getElementById("new-task");//Add a new task.
-var addButton=document.querySelectorAll(".btn")[0];//first button
-var incompleteTaskHolder=document.getElementById("incomplete-tasks");//ul of #incomplete-tasks
-var completedTasksHolder=document.getElementById("completed-tasks");//completed-tasks
 
+
+
+// var taskInput=document.getElementById("new-task");//Add a new task.
+
+
+var taskInput=document.querySelector(".add-task__input");
+var addButton=document.querySelector(".add-task__btn");//first button
+// var incompleteTaskHolder=document.getElementById("incomplete-tasks");//ul of #incomplete-tasks
+var incompleteTaskHolder=document.querySelector(".incomplete-tasks__list");//ul of #incomplete-tasks
+// var completedTasksHolder=document.getElementById("completed-tasks");//completed-tasks
+// console.log(completedTasksHolder)
+var completedTasksHolder=document.querySelector(".completed-tasks__list");
 
 //New task list item
 var createNewTaskElement=function(taskString){
@@ -32,23 +40,26 @@ var createNewTaskElement=function(taskString){
     var deleteButton=document.createElement("button");//delete button
     var deleteButtonImg=document.createElement("img");//delete button image
 
-    listItem.className = 'list-item';
+    listItem.className = 'incomplete-tasks__item';
 
     label.innerText=taskString;
-    label.className='task task-label';
+    label.className='incomplete-tasks__label';
+
 
     //Each elements, needs appending
     checkBox.type="checkbox";
-    checkBox.className='checkbox'
+    checkBox.className='incomplete-tasks__checkbox';
     editInput.type="text";
-    editInput.className="input-field task";
+    editInput.className="incomplete-tasks__input";
+
 
     editButton.innerText="Edit"; //innerText encodes special characters, HTML does not.
-    editButton.className="btn edit";
+    editButton.className="incomplete-tasks__btn-edit edit";
 
-    deleteButton.className="btn delete";
+
+    deleteButton.className="incomplete-tasks__btn-delete delete";
     deleteButtonImg.src='./remove.svg';
-    deleteButtonImg.className = 'delete-img'
+    deleteButtonImg.className = 'incomplete-tasks__img'
     deleteButton.appendChild(deleteButtonImg);
 
 
@@ -67,6 +78,7 @@ var addTask=function(){
     console.log("Add Task...");
     //Create a new list item with the text from the #new-task:
     if (!taskInput.value) return;
+    // console.log(taskInput.value);
     var listItem=createNewTaskElement(taskInput.value);
 
     //Append listItem to incompleteTaskHolder
@@ -85,10 +97,10 @@ var editTask=function(){
 
 
     var listItem=this.parentNode;
-
+    console.log(listItem)
     var editInput=listItem.querySelector('input[type=text]');
     var label=listItem.querySelector("label");
-    var editBtn=listItem.querySelector(".edit");
+    var editBtn=listItem.querySelector("button.edit");
     var containsClass=listItem.classList.contains("edit-mode");
     //If class of the parent is .edit-mode
     if(containsClass){
@@ -126,6 +138,7 @@ var taskCompleted=function(){
     //Append the task list item to the #completed-tasks
     var listItem=this.parentNode;
     completedTasksHolder.appendChild(listItem);
+    console.log(listItem.querySelectorAll('*'))
     bindTaskEvents(listItem, taskIncomplete);
 
 }
@@ -165,8 +178,10 @@ var bindTaskEvents=function(taskListItem,checkBoxEventHandler){
 
 
     //Bind editTask to edit button.
+    console.log(editButton)
     editButton.onclick=editTask;
     //Bind deleteTask to delete button.
+    console.log(deleteButton)
     deleteButton.onclick=deleteTask;
     //Bind taskCompleted to checkBoxEventHandler.
     checkBox.onchange=checkBoxEventHandler;
@@ -174,6 +189,7 @@ var bindTaskEvents=function(taskListItem,checkBoxEventHandler){
 
 //cycle over incompleteTaskHolder ul list items
 //for each list item
+// console.log(incompleteTaskHolder)
 for (var i=0; i<incompleteTaskHolder.children.length;i++){
 
     //bind events to list items chldren(tasksCompleted)

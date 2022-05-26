@@ -101,9 +101,12 @@ var editTask=function(){
     var editInput=listItem.querySelector('input[type=text]');
     var label=listItem.querySelector("label");
     var editBtn=listItem.querySelector("button.edit");
-    var containsClass=listItem.classList.contains("edit-mode");
+    var containsClassIncomplete=listItem.classList.contains("incomplete-tasks__item_edit");
+    console.log(containsClassIncomplete)
+    var containsClassCompleted=listItem.classList.contains("completed-tasks__item_edit");
+    console.log(containsClassCompleted)
     //If class of the parent is .edit-mode
-    if(containsClass){
+    if(containsClassIncomplete || containsClassCompleted){
 
         //switch to .edit-mode
         //label becomes the inputs value.
@@ -115,7 +118,14 @@ var editTask=function(){
     }
 
     //toggle .edit-mode on the parent.
-    listItem.classList.toggle("edit-mode");
+    if (containsClassIncomplete) {
+        listItem.classList.toggle("incomplete-tasks__item_edit");
+    } else if (containsClassCompleted) {
+        listItem.classList.toggle("completed-tasks__item_edit");
+    } else {
+        var itemClass = listItem.classList[0];
+        listItem.classList.add(`${itemClass}_edit`);
+    }
 };
 
 

@@ -147,6 +147,33 @@ var deleteTask=function(){
 
 }
 
+//Change item's status in the class names
+
+function changeStatus (item, statusFrom, statusTo) {
+    if (item.classList.contains(`${statusFrom}__item_edit`)) {
+        item.classList = '';
+        item.classList.add(`${statusTo}__item`);
+        item.classList.add(`${statusTo}__item_edit`);
+    } else {
+        item.classList = '';
+        item.classList.add(`${statusTo}__item`);
+    }
+    var children = item.querySelectorAll('*')
+    children.forEach(node => {
+        if (node.nodeName === 'BUTTON') {
+            var mainName = node.classList[0].split('__')[1];
+            var modName = node.classList[1].split('__')[1];
+            node.classList = '';
+            node.classList.add(`${statusTo}__${mainName}`);
+            node.classList.add(`${statusTo}__${modName}`);
+        } else {
+            var classElem = node.classList[0].split('__')[1];
+            node.classList.remove(node.classList[0])
+            node.classList = `${statusTo}__${classElem}`;
+        }
+    });
+    return item;
+}
 
 //Mark task completed
 var taskCompleted=function(){
@@ -154,16 +181,9 @@ var taskCompleted=function(){
 
     //Append the task list item to the #completed-tasks
     var listItem=this.parentNode;
-    // var children = listItem.querySelectorAll('*')
-    // children.forEach(node => {
-    //     console.log(node.classList[0].split('__')[1])
-    //     var classElem = node.classList[0].split('__')[1];
-    //     node.classList.remove(node.classList[0])
-    //     node.classList[0] = (`completed-tasks__${classElem}`);
-    // });
+    listItem = changeStatus (listItem, 'incomplete-tasks', 'completed-tasks');
     completedTasksHolder.appendChild(listItem);
     bindTaskEvents(listItem, taskIncomplete);
-
 }
 
 
@@ -173,12 +193,7 @@ var taskIncomplete=function(){
     //When the checkbox is unchecked
     //Append the task list item to the #incomplete-tasks.
     var listItem=this.parentNode;
-    // var children = listItem.querySelectorAll('*')
-    // children.forEach(node => {
-    //     console.log(node.classList[0].split('__')[1])
-    //     var classElem = node.classList[0].split('__')[1];
-    //     node.classList = `incomplete-tasks__${classElem}`
-    // });
+    listItem = changeStatus (listItem, 'completed-tasks', 'incomplete-tasks');
     incompleteTaskHolder.appendChild(listItem);
     bindTaskEvents(listItem,taskCompleted);
 }
@@ -215,10 +230,10 @@ var bindTaskEvents=function(taskListItem,checkBoxEventHandler){
 
 
     //Bind editTask to edit button.
-    console.log(editButton)
+    // console.log(editButton)
     editButton.onclick=editTask;
     //Bind deleteTask to delete button.
-    console.log(deleteButton)
+    // console.log(deleteButton)
     deleteButton.onclick=deleteTask;
     //Bind taskCompleted to checkBoxEventHandler.
     checkBox.onchange=checkBoxEventHandler;

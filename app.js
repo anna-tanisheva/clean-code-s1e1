@@ -246,8 +246,11 @@ for (var i=0; i<completedTasksHolder.children.length;i++){
 }
 
 
+let addSectionHeading = document.querySelector('.add-task__heading');
 
-
+addSectionHeading.addEventListener('click', ()=>{
+    document.querySelector('.add-task__input').focus();
+})
 // Issues with usability don't get seen until they are in front of a human tester.
 
 //prevent creation of empty tasks.
